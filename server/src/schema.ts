@@ -41,6 +41,13 @@ const Query = objectType({
       },
     })
 
+    t.list.field('users', {
+      type: 'User',
+      resolve: (parent, args, etx) => {
+        return etx.prisma.user.findMany()
+      },
+    })
+
     t.nullable.field('postById', {
       type: 'Post',
       args: {
