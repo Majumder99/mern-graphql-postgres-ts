@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
@@ -16,7 +15,7 @@ const httpLink = new HttpLink({
   uri: "http://localhost:4000",
 });
 
-const authLink = setContext(async (req, { headers }) => {
+const authLink = setContext(async (_, { headers }) => {
   const token = localStorage.getItem("token");
   return {
     ...headers,
@@ -38,11 +37,9 @@ const client = new ApolloClient({
 // });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <ApolloProvider client={client}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ApolloProvider>
-  </React.StrictMode>
+  <ApolloProvider client={client}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </ApolloProvider>
 );
